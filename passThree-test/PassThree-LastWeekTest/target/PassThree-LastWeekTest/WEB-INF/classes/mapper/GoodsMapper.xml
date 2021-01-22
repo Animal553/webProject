@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qianfeng.mapper.GoodsMapper">
+
+    <resultMap id="goodMap" type="goods">
+        <id property="goodsId" column="goods_id"></id>
+        <result property="goodsName" column="goods_name"></result>
+        <result property="price" column="price"></result>
+        <result property="categoryId" column="category_id"></result>
+        <result property="createTime" column="create_time"></result>
+        <association property="category" javaType="category">
+            <id property="categoryId" column="category_id"></id>
+            <result property="categoryName" column="category_name"></result>
+        </association>
+    </resultMap>
+
+    <select id="getGoodsList" resultMap="goodMap">
+        SELECT * FROM goods g, category c WHERE g.category_id = c.category_id
+    </select>
+
+
+    <insert id="addGood" parameterType="goods">
+        INSERT INTO goods(goods_name,price,category_id,create_time) VALUES (#{goodsName},#{price},#{categoryId},#{createTime})
+    </insert>
+
+    <delete id="deleteGood" parameterType="int">
+        DELETE FROM goods WHERE goods_id = #{goodsId}
+    </delete>
+
+    <update id="updateGood" parameterType="goods">
+        UPDATE goods
+        <set>
+            <if test="goodsName!=null">goods_name=#{goodsName},</if>
+            <if test="price!=null">price=#{price},</if>
+            <if test="categoryId!=null ">category_id=#{categoryId},</if>
+            <if test="createTime!=null ">create_time=#{createTime}</if>
+        </set>
+        <where>
+            goods_id =#{goodsId}
+        </where>
+    </update>
+
+</mapper>
