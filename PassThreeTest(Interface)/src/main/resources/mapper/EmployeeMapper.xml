@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qianfeng.mapper.EmployeeMapper">
+    <insert id="addEmployee" parameterType="employee">
+        INSERT INTO employee (emp_name,dept_id,gender,phone,qq,email,hire_time,emp_password,role_id)
+        VALUES (#{empName},#{deptId},#{gender},#{phone},#{qq},#{email},#{hireTime},#{empPassword},#{roleId})
+    </insert>
+
+    <delete id="deleteEmployee" parameterType="int">
+        DELETE FROM employee WHERE emp_id =#{empId}
+    </delete>
+
+    <update id="updateEmployee" parameterType="employee">
+        UPDATE employee
+        <set>
+            <if test="empName!=null"> emp_name =#{empName},</if>
+            <if test="deptId!=null"> dept_id =#{deptId},</if>
+            <if test="gender!=null"> gender =#{gender},</if>
+            <if test="phone!=null"> phone =#{phone},</if>
+            <if test="qq!=null"> qq =#{qq},</if>
+            <if test="email!=null"> email =#{email},</if>
+            <if test="hireTime!=null"> hire_time =#{hireTime},</if>
+            <if test="empPassword!=null"> emp_password =#{empPassword},</if>
+            <if test="roleId!=null"> role_id =#{roleId}</if>
+        </set>
+        <where>
+            emp_id =#{empId}
+        </where>
+    </update>
+
+    <resultMap id="empMap" type="employee">
+        <id property="empId" column="emp_id"></id>
+        <result property="empName" column="emp_name"></result>
+        <result property="deptId" column="dept_id"></result>
+        <result property="gender" column="gender"></result>
+        <result property="phone" column="phone"></result>
+        <result property="qq" column="qq"></result>
+        <result property="email" column="email"></result>
+        <result property="hireTime" column="hire_time"></result>
+        <result property="empPassword" column="emp_password"></result>
+        <result property="roleId" column="role_id"></result>
+        <association property="department" javaType="department" column="dept_id" select="com.qianfeng.mapper.DepartmentMapper.getDepartment"></association>
+        <association property="role" javaType="role" column="role_id" select="com.qianfeng.mapper.RoleMapper.get_role"></association>
+    </resultMap>
+
+
+    <select id="getEmployeeList" resultMap="empMap">
+        SELECT * FROM employee
+    </select>
+
+    <select id="get_EmployeeById" resultMap="empMap">
+        SELECT * FROM employee WHERE emp_id =#{empId}
+    </select>
+</mapper>

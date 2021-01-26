@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qianfeng.mapper.RoleMapper">
+    <insert id="add_role" parameterType="role">
+        INSERT INTO role(role_id,role_name,status) VALUES (#{roleId},#{roleName},#{status})
+    </insert>
+
+    <delete id="delete_role" parameterType="int">
+        DELETE FROM role WHERE role_id = #{roleId}
+    </delete>
+
+    <update id="update_role" parameterType="role">
+        UPDATE role
+        <set>
+            <if test="roleName!=null">role_name =#{roleName},</if>
+            <if test="status!=null">status =#{status}</if>
+        </set>
+        <where>
+            role_id =#{roleId}
+        </where>
+    </update>
+
+    <select id="get_roleList" resultType="role">
+        SELECT * FROM role
+    </select>
+
+    <select id="get_role" parameterType="int" resultType="role">
+        SELECT * FROM role WHERE role_id =#{roleId}
+    </select>
+</mapper>

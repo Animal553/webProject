@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qianfeng.mapper.AttendanceMapper">
+
+    <insert id="add_attendance" parameterType="attendance">
+        INSERT INTO attendance(emp_id,work_type_id,start_time,end_time,days,resultStatus) VALUES (#{empId},#{workTypeId},#{startTime},#{endTime},#{days},#{resultStatus})
+    </insert>
+
+    <update id="update_attendance" parameterType="attendance">
+        UPDATE attendance
+        <set>
+            <if test="empId!=null">emp_id =#{empId},</if>
+            <if test="workTypeId!=null">work_type_id =#{workTypeId},</if>
+            <if test="startTime!=null">start_time =#{startTime},</if>
+            <if test="endTime!=null">end_time =#{endTime},</if>
+            <if test="days!=null">days =#{days},</if>
+            <if test="resultStatus!=null">resultStatus =#{resultStatus}</if>
+        </set>
+        <where>
+            attendance_id =#{attendanceId}
+        </where>
+    </update>
+
+    <delete id="delete_attendance" parameterType="int">
+        DELETE FROM attendance WHERE attendance_id =#{attendanceId}
+    </delete>
+
+    <resultMap id="attMap" type="attendance">
+        <id property="attendanceId" column="attendance_id"></id>
+        <result property="empId" column="emp_id"></result>
+        <result property="workTypeId" column="work_type_id"></result>
+        <result property="startTime" column="start_time"></result>
+        <result property="endTime" column="endTime"></result>
+        <result property="days" column="days"></result>
+        <result property="resultStatus" column="resultStatus"></result>
+        <association property="employee" javaType="employee" column="emp_id" select="com.qianfeng.mapper.EmployeeMapper.get_EmployeeById"></association>
+        <association property="workType" javaType="workType" column="work_type_id" select="com.qianfeng.mapper.WorkTypeMapper.getWorkType"></association>
+    </resultMap>
+
+    <select id="getAttendanceList" resultMap="attMap">
+        SELECT * FROM attendance
+    </select>
+
+    <select id="get_attendanceById" resultMap="attMap">
+        SELECT * FROM attendance WHERE attendance_id =#{attendanceId}
+    </select>
+</mapper>

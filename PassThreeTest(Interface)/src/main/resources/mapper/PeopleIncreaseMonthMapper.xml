@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qianfeng.mapper.PeopleIncreaseMonthMapper">
+
+    <resultMap id="peoMap" type="peopleIncrease">
+        <result property="y" column="number"></result>
+    </resultMap>
+
+    <select id="getPeopleIncrease1" resultMap="peoMap">
+        select count(*) AS number from student  where date_format(in_time,'%Y-%m')='2021-01'
+    </select>
+
+    <select id="getPeopleIncrease2" resultMap="peoMap">
+        select count(*) AS number from student  where date_format(in_time,'%Y-%m')='2021-02'
+    </select>
+
+    <select id="getPeopleIncrease3" resultMap="peoMap">
+        select count(*) AS number from student  where date_format(in_time,'%Y-%m')='2021-03'
+    </select>
+
+    <select id="getPeopleIncrease4" resultMap="peoMap">
+        select count(*) AS number from student  where date_format(in_time,'%Y-%m')='2021-04'
+    </select>
+
+    <select id="getPeopleIncrease5" resultMap="peoMap">
+        select count(*) AS number from student  where date_format(in_time,'%Y-%m')='2021-05'
+    </select>
+
+    <select id="getPeopleIncrease6" resultMap="peoMap">
+        select count(*) AS number from student  where date_format(in_time,'%Y-%m')='2021-06'
+    </select>
+
+</mapper>

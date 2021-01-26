@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qianfeng.mapper.WorkTypeMapper">
+    <select id="getWorkTypeList" resultType="workType">
+        SELECT * FROM work_type
+    </select>
+    <select id="getWorkType" resultType="workType" parameterType="int">
+        SELECT * FROM work_type WHERE work_type_id =#{workTypeId}
+    </select>
+</mapper>

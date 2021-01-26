@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qianfeng.mapper.ClassMapper">
+
+    <insert id="addClass" parameterType="class">
+        INSERT INTO class(class_name,subject_id,class_count,class_life,class_address,create_time)
+        VALUES (#{className},#{subjectId},#{classCount},#{classLife},#{classAddress},#{createTime})
+    </insert>
+
+    <delete id="deleteClass" parameterType="int">
+        DELETE FROM class WHERE class_id =#{classId}
+    </delete>
+
+    <update id="updateClass" parameterType="class">
+        UPDATE class
+        <set>
+            <if test="className!=null">class_name =#{className},</if>
+            <if test="subjectId!=null">subject_id =#{subjectId},</if>
+            <if test="classCount!=null">class_count =#{classCount},</if>
+            <if test="classLife!=null">class_life =#{classLife},</if>
+            <if test="classAddress!=null">class_address =#{classAddress},</if>
+            <if test="createTime!=null">create_time =#{createTime}</if>
+        </set>
+        <where>
+            class_id =#{classId}
+        </where>
+    </update>
+
+
+
+    <resultMap id="classMap" type="class">
+        <id property="classId" column="class_id"></id>
+        <result property="className" column="class_name"></result>
+        <result property="subjectId" column="subject_id"></result>
+        <result property="classCount" column="class_count"></result>
+        <result property="classLife" column="class_life"></result>
+        <result property="classAddress" column="class_address"></result>
+        <result property="createTime" column="create_time"></result>
+        <association property="subject" javaType="subject" column="subject_id" select="com.qianfeng.mapper.SubjectMapper.getSubject"></association>
+    </resultMap>
+
+
+    <select id="getClassList" resultMap="classMap">
+        SELECT * FROM class
+    </select>
+
+    <select id="getClass" parameterType="int" resultMap="classMap">
+        SELECT * FROM class WHERE class_id =#{classId}
+    </select>
+</mapper>

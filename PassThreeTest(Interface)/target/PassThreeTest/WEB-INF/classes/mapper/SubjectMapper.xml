@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qianfeng.mapper.SubjectMapper">
+
+    <insert id="addSubject" parameterType="subject">
+        INSERT INTO subject(subject_name,subject_life,create_time,subject_type_id) VALUES (#{subjectName},#{subjectLife},#{createTime},#{subjectTypeId})
+    </insert>
+
+    <delete id="deleteSubject" parameterType="int">
+        DELETE FROM subject WHERE subject_id=#{subjectId}
+    </delete>
+
+    <update id="updateSubject" parameterType="subject">
+        UPDATE subject
+        <set>
+            <if test="subjectName!=null">subject_name =#{subjectName},</if>
+            <if test="subjectLife!=null">subject_life =#{subjectLife},</if>
+            <if test="createTime!=null">create_time =#{createTime},</if>
+            <if test="subjectTypeId!=null">subject_type_id =#{subjectTypeId}</if>
+        </set>
+        <where>
+            subject_id=#{subjectId}
+        </where>
+    </update>
+
+
+    <resultMap id="subMap" type="subject">
+        <id property="subjectId" column="subject_id"></id>
+        <result property="subjectName" column="subject_name"></result>
+        <result property="subjectLife" column="subject_life"></result>
+        <result property="createTime" column="create_time"></result>
+        <result property="subjectTypeId" column="subject_type_id"></result>
+        <association property="subjectType" javaType="subjectType" column="subject_type_id" select="com.qianfeng.mapper.SubjectTypeMapper.getSubjectType" ></association>
+    </resultMap>
+
+    <select id="getSubjectList" resultMap="subMap">
+        SELECT * FROM subject
+    </select>
+
+    <select id="getSubject" parameterType="int" resultMap="subMap">
+        SELECT * FROM subject WHERE subject_id=#{subjectId}
+    </select>
+</mapper>
