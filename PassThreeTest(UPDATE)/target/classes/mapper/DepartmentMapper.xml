@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qianfeng.mapper.DepartmentMapper">
+
+    <select id="getDepartmentList" resultType="department">
+        SELECT * FROM department
+    </select>
+
+    <select id="getDepartment" parameterType="int" resultType="department">
+        SELECT * FROM department WHERE dept_id =#{deptId}
+    </select>
+
+    <insert id="addDepartment" parameterType="department">
+        INSERT INTO department(dept_name,create_time) VALUES (#{deptName},#{createTime})
+    </insert>
+
+    <delete id="deleteDepartment" parameterType="int">
+        DELETE FROM department WHERE dept_id =#{deptId}
+    </delete>
+
+    <update id="updateDepartment" parameterType="department">
+         UPDATE department
+        <set>
+            <if test="deptName!=null">dept_name =#{deptName},</if>
+            <if test="createTime!=null">create_time =#{createTime}</if>
+        </set>
+        <where>
+            dept_id =#{deptId}
+        </where>
+    </update>
+
+</mapper>

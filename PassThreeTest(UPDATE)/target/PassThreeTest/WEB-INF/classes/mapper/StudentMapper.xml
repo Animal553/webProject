@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qianfeng.mapper.StudentMapper">
+
+    <insert id="add_student" parameterType="student">
+        INSERT INTO student(student_name,class_id,stu_gender,stu_phone,stu_qq,stu_email,graduate_school,education_id,create_time,in_time,emp_id,card_num)VALUES
+        (#{studentName},#{classId},#{stuGender},#{stuPhone},#{stuQq},#{stuEmail},#{graduateSchool},#{educationId},#{createTime},#{inTime},#{empId},#{cardNum})
+    </insert>
+
+    <delete id="delete_student" parameterType="int">
+        DELETE FROM student WHERE student_id =#{studentId}
+    </delete>
+
+    <update id="update_student" parameterType="student">
+        UPDATE student
+        <set>
+            <if test="studentName!=null">student_name =#{studentName},</if>
+            <if test="classId!=null">class_id =#{classId},</if>
+            <if test="stuGender!=null">stu_gender =#{stuGender},</if>
+            <if test="stuPhone!=null">stu_phone =#{stuPhone},</if>
+            <if test="stuQq!=null">stu_qq =#{stuQq},</if>
+            <if test="stuEmail!=null">stu_email =#{stuEmail},</if>
+            <if test="graduateSchool!=null">graduate_school =#{graduateSchool},</if>
+            <if test="educationId!=null">education_id =#{educationId},</if>
+            <if test="inTime!=null">in_time =#{inTime},</if>
+            <if test="empId!=null">emp_id =#{empId},</if>
+            <if test="cardNum!=null">card_num =#{cardNum}</if>
+        </set>
+        <where>
+            student_id =#{studentId}
+        </where>
+    </update>
+
+
+    <resultMap id="stuMap" type="student">
+        <id property="studentId" column="student_id"></id>
+        <result property="studentName" column="student_name"></result>
+        <result property="classId" column="class_id"></result>
+        <result property="stuGender" column="stu_gender"></result>
+        <result property="stuPhone" column="stu_phone"></result>
+        <result property="stuQq" column="stu_qq"></result>
+        <result property="stuEmail" column="stu_email"></result>
+        <result property="graduateSchool" column="graduate_school"></result>
+        <result property="educationId" column="education_id"></result>
+        <result property="inTime" column="in_time"></result>
+        <result property="empId" column="emp_id"></result>
+        <result property="cardNum" column="card_num"></result>
+
+        <association property="clazz" javaType="class" column="class_id" select="com.qianfeng.mapper.ClassMapper.getClass"></association>
+        <association property="education" javaType="education" column="education_id" select="com.qianfeng.mapper.EducationMapper.getEducation"></association>
+        <association property="employee" javaType="employee" column="emp_id" select="com.qianfeng.mapper.EmployeeMapper.get_EmployeeById"></association>
+    </resultMap>
+
+
+    <select id="getStudentList" resultMap="stuMap">
+        SELECT * FROM student
+    </select>
+
+    <select id="get_studentById" parameterType="int" resultMap="stuMap">
+        SELECT * FROM student WHERE student_id =#{studentId}
+    </select>
+
+</mapper>

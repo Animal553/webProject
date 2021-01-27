@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qianfeng.mapper.PeopleIncreaseMapper">
+
+    <resultMap id="peoMap" type="peopleIncrease">
+        <result property="y" column="number"></result>
+    </resultMap>
+
+    <select id="getPeopleIncrease1" resultMap="peoMap">
+        SELECT COUNT(*) AS number FROM student WHERE in_time=(select SUBDATE(CURDATE(),DATE_FORMAT(CURDATE(),'%w')+6));
+    </select>
+
+    <select id="getPeopleIncrease2" resultMap="peoMap">
+        SELECT COUNT(*) AS number FROM student WHERE in_time=(select SUBDATE(CURDATE(),DATE_FORMAT(CURDATE(),'%w')+5));
+    </select>
+
+    <select id="getPeopleIncrease3" resultMap="peoMap">
+        SELECT COUNT(*) AS number FROM student WHERE in_time=(select SUBDATE(CURDATE(),DATE_FORMAT(CURDATE(),'%w')+4));
+    </select>
+
+    <select id="getPeopleIncrease4" resultMap="peoMap">
+        SELECT COUNT(*) AS number FROM student WHERE in_time=(select SUBDATE(CURDATE(),DATE_FORMAT(CURDATE(),'%w')+3));
+    </select>
+
+    <select id="getPeopleIncrease5" resultMap="peoMap">
+        SELECT COUNT(*) AS number FROM student WHERE in_time=(select SUBDATE(CURDATE(),DATE_FORMAT(CURDATE(),'%w')+2));
+    </select>
+
+    <select id="getPeopleIncrease6" resultMap="peoMap">
+        SELECT COUNT(*) AS number FROM student WHERE in_time=(select SUBDATE(CURDATE(),DATE_FORMAT(CURDATE(),'%w')+1));
+    </select>
+
+    <select id="getPeopleIncrease7" resultMap="peoMap">
+        SELECT COUNT(*) AS number FROM student WHERE in_time=(select SUBDATE(CURDATE(),DATE_FORMAT(CURDATE(),'%w')));
+    </select>
+
+</mapper>
