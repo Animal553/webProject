@@ -74,7 +74,6 @@ public class User {
 @Test
 public void writeExcel1() {
 	
-	
 	//创建文件保存的位置,以及文件名
 	String fileName="user1.xlsx";
 	
