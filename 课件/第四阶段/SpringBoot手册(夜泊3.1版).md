@@ -610,6 +610,11 @@ public class LogAspect {
     <artifactId>druid</artifactId>
     <version>1.1.20</version>
 </dependency>
+<dependency>
+    <groupId>org.mybatis.spring.boot</groupId>
+    <artifactId>mybatis-spring-boot-starter</artifactId>
+    <version>2.1.4</version>
+</dependency>
 ```
 * 创建配置文件
 ```
