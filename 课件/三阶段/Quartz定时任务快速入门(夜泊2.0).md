@@ -355,7 +355,7 @@ public static void main(String[] args) throws SchedulerException, InterruptedExc
 #### 4.2 方式二(MethodInvokingJobDetailFactoryBean)
 
 * 创建任务类
-```
+```java
 /**
  * @Author 枫桥夜泊1990 
  * @BLOG   https://hd1611756908.github.io/
@@ -379,7 +379,7 @@ public class MyJob{
 }
 ```
 * 创建Spring配置文件(spring.xml)
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -442,7 +442,7 @@ public class MyJob{
 
 ```
 * 测试
-```
+```java
 public static void main(String[] args) throws InterruptedException, SchedulerException{
 	// 如果只是启动任务,那么只需要创建IOC容器即可
 	ApplicationContext ioc = new ClassPathXmlApplicationContext("spring.xml");
@@ -468,7 +468,7 @@ quartz.properties 是Quartz的默认配置,主要使用配置和调度工厂类(
 或者直接配置到spring的xml文件中
 ```
 * xml配置
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -534,7 +534,7 @@ quartz.properties 是Quartz的默认配置,主要使用配置和调度工厂类(
 AutowireCapableBeanFactory可以实现对已存在实例进行管理,捆绑并填充并不由Spring管理生命周期并已存在的对象.
 ```
 * 重写用于生成job实例的SpringBeanJobFactory
-```
+```java
 /**
  * 重写SpringBeanJobFactory类,用于生成job实例,并且使用AutowireCapableBeanFactory类
  * 的autowireBean方法将新生成的job实例加入到IOC中
@@ -558,7 +558,7 @@ public class CustomerJobFactory extends SpringBeanJobFactory {
 <bean id="customJobFactory" class="com.qianfeng.task.CustomJobFactory"></bean>
 ```
 * Quartz在Spring中的配置
-```
+```xml
 <!--将重写了的SpringBeanJobFactory加入到IOC中进行实例化-->
 <bean id="customJobFactory" class="com.qianfeng.task.CustomJobFactory"></bean>
 
