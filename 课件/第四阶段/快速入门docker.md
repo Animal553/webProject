@@ -74,7 +74,7 @@ https://docs.docker.com/engine/install/centos/
     版本号截取方式在第二列中从冒号(:)开始,短横线(-)结束中间的那段为版本(例如 3:20.10.2-3.el7 的版本为 20.10.2)替换<VERSION_STRING>即可
     
 3. 例如安装命令 
-    -> yum install docker-ce-20.10.2 docker-ce-cli-20.10.2
+    -> yum install docker-ce-20.10.2 docker-ce-cli-20.10.2 containerd.io
 
 4. 安装完成启动
     -> systemctl start docker
